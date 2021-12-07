@@ -1,0 +1,12 @@
+[
+    {
+      "text": "Nombre",
+      "align": "start",
+      "sortable": false,
+      "value": "nombre"
+    },
+    { "text": "Precio", "value": "precio" },
+    { "text": "Stock", "value": "stock" }
+    
+  ]
+  
