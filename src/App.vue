@@ -9,7 +9,7 @@
   <Carrito/> 
   </v-container>
 
-  </v-app>
+  </v-app>  
 </template>
 
 <script>
