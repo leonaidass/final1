@@ -22,6 +22,12 @@
         "precio": 180,
         "stock": 4
         
+      },
+      {
+        "nombre": "Pizza",
+        "precio": 600,
+        "stock": 3
+        
       }
 
   ]
