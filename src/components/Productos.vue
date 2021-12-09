@@ -28,6 +28,7 @@ import datos from "../assets/datos.json";
                 datos
             }
         },
+       
         
     }
 </script>

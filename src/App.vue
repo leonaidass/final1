@@ -5,8 +5,11 @@
   </v-app-bar>
 
   <v-container class="pt-12 mt-12">
+    <Login v-if="!logueado" @click="enviar" />  
+   <div v-else>
   <Productos/>
   <Carrito/> 
+   </div>
   </v-container>
 
   </v-app>  
@@ -15,10 +18,23 @@
 <script>
 import Productos from "./components/Productos.vue"
 import Carrito from "./components/Carrito.vue"
+import Login from "./components/Login.vue"
   export default {
     components:{
       Productos,
-      Carrito
+      Carrito,
+      Login
+    },
+    data() {
+      return {
+       logueado: false,
+      }
+    },
+    methods:{
+       enviar(valor) {
+        this.logueado = valor
+        
+      }
     }
     
   }
