@@ -1,11 +1,11 @@
 <template>
 <v-app>
-  <v-app-bar app  color=primary dark>
-   <h1>Incio</h1>
+  <v-app-bar app  color=green dark>
+   <h1>ComidasSaludables.Com</h1>
   </v-app-bar>
 
   <v-container class="pt-12 mt-12">
-    <Login v-if="!logueado" @click="enviar" />  
+    <Login v-if="!logueado" @recibir="enviar" />  
    <div v-else>
   <Productos/>
   <Carrito/> 

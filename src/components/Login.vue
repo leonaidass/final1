@@ -1,77 +1,73 @@
 <template>
-    <div>
-       <h1>Inicio Sesion</h1>
-       <v-form v-model="valid">
-      
-        <v-row>
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="nombre"
-              :rules="nameRules"
-              :counter="10"
-              label="Nombre"
-              required
-            ></v-text-field>
-          </v-col>
+  <div>
+    <v-container class="card-container d-flex justify-center">
+    <v-card class="primaryBlack text-center pa-8" max-width="500">
+      <img src="../assets/logo.jpg" alt="" style="width:300px">
+    <h1>Inicio Sesion</h1>
+    <v-form v-model="valid" ref="login">
+      <v-row>
+        <v-col cols="12" md="12">
+          <v-text-field
+            v-model="Usuario"
+            :rules="nameRules"
+            :counter="10"
+            label="Usuario"
+            required
+          ></v-text-field>
+        </v-col>
 
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="apellido"
-              :rules="nameRules"
-              :counter="10"
-              label="Apellido"
-              required
-            ></v-text-field>
-          </v-col>
+        <v-col cols="12" md="12">
+          <v-text-field
+            v-model="Contraseña"
+            :rules="nameRules"
+            :counter="10"
+            label="Contraseña"
+            required
+          ></v-text-field>
+        </v-col>
 
-          <v-col cols="12" md="4">
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              label="E-mail"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-     
-      <v-btn class="mr-4 primary" @click="enviar" > Enviar </v-btn>
+       
+      </v-row>
+
+      <v-btn  block color="green" dark @click="enviar"> Enviar </v-btn>
     </v-form>
-    </div>
+
+    </v-card>
+
+    </v-container>
+  </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-               valid: false,
-    nombre: "",
-    apellido: "",
-    valor: false,
-    nameRules: [
-      (v) => !!v || "Por favor complete este campo",
-      (v) => v.length >= 3 || "Este campo debe contener al menos 3 caracteres",
-    ],
-    email: "",
-    emailRules: [
-      (v) => !!v || "Por favor complete este campo",
-      (v) =>
-        /.+@.+/.test(v) || "Por favor complete con una dirección de e-mail",
-    ]
-            }
-        },
-        methods:{
-                  enviar() {
-      
-        this.valor = true;
-        
-        this.$emit("click", this.valor);
-      
-    }
-        }
-        
-    }
+export default {
+  data() {
+    return {
+      valid: false,
+      Usuario: "",
+      Contraseña: "",
+      valor: false,
+      nameRules: [
+        (v) => !!v || "Por favor complete este campo",
+        (v) =>
+          v.length >= 3 || "Este campo debe contener al menos 3 caracteres",
+      ],
+      email: "",
+      emailRules: [
+        (v) => !!v || "Por favor complete este campo",
+        (v) =>
+          /.+@.+/.test(v) || "Por favor complete con una dirección de e-mail",
+      ],
+    };
+  },
+  methods: {
+    enviar() {
+      if(this.$refs.login.validate()){
+         this.valor = true;
+         this.$emit("recibir", this.valor);}
+     
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
