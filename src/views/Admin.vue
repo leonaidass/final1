@@ -32,12 +32,55 @@
             </template>
             <template v-slot:item.acciones="{ item }">
               <v-btn color="red" dark @click="eliminar(item.id)"
-                >Eliminar</v-btn
-              >
+                >Eliminar</v-btn>
+                <v-btn class="ml-2" color="green" dark @click="editarDialog(item.id)"
+                >Editar</v-btn>
             </template>
           </v-data-table>
         </v-col>
       </v-row>
+       <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Editar Producto</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-card-text>
+              <v-text-field
+              v-model="datosEditar.nombre"
+              label="Nombre"
+            ></v-text-field>
+
+             <v-text-field
+              v-model="datosEditar.precio"
+              label="Precio $"
+            ></v-text-field>
+
+             <v-text-field
+              v-model="datosEditar.cantidad"
+              label="Cantidad"
+            ></v-text-field>
+
+             <v-text-field
+              v-model="datosEditar.descripcion"
+              label="Descripcion"
+            ></v-text-field>
+               
+            </v-card-text>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Cerrar
+          </v-btn>
+          <v-btn color="blue darken-1" text @click="editarGuarda()">
+            Guardar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     </v-container>
   </div>
 </template>
@@ -52,7 +95,10 @@ export default {
         nombre: "",
         precio: 0,
         cantidad: 0,
+        
       },
+      datosEditar:{},
+      dialog:false,
       datosHeader: [
         {
           text: "Nombre",
@@ -91,6 +137,25 @@ export default {
           console.log(res.data)
           this.obtenerProductos()
       })
+    },
+    editarDialog(ideditar){
+        this.dialog=true
+        axios.get(`https://61afe8ff3e2aba0017c4959a.mockapi.io/productos/${ideditar}`)
+       .then((res)=>{
+         this.datosEditar=res.data
+         console.log("los datos son",this.datosEditar)
+       })
+    },
+    editarGuarda(){
+            const id = this.datosEditar.id
+            axios.put(`https://61afe8ff3e2aba0017c4959a.mockapi.io/productos/${id}`,this.datosEditar)
+            .then((res)=>{
+              console.log(res)
+              this.dialog=false
+              this.obtenerProductos()
+            }) .catch((error)=>{
+              console.log(error)
+            })
     },
     eliminar(idproducto) {
       axios

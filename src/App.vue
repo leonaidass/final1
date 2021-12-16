@@ -14,7 +14,7 @@
          </div>
       </v-app-bar>
       <v-container class="pt-12 mt-12">
-         <Login v-if="!logueado" @recibir="enviar" /> 
+         <Login v-if="logueado" @recibir="enviar" /> 
         <router-view v-else/>
         
   
