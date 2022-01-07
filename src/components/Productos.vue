@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div v-for="dato in datos" :key="dato.id" class="cols-12 col-md-3">
+    <div v-for="dato in gettProductos" :key="dato.id" class="cols-12 col-md-3">
       <v-card
         class="pa-4 ma-2 mx-auto"
         max-width="344"
@@ -47,24 +47,17 @@
 
 <script>
 import axios from "axios"
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      datos: [],
       dialog: false,
       mensajeDetalle: "",
       datoCarrito: { nombre: "", precio: "", cantidad: "" },
     };
   },
   methods: {
-    obtenerProductos() {
-      fetch("https://61afe8ff3e2aba0017c4959a.mockapi.io/productos")
-        .then((res) => res.json())
-        .then((data) => {
-          this.datos = data;
-        });
-    },
-    ver(descrpicion) {
+      ver(descrpicion) {
       this.dialog = true;
       this.mensajeDetalle = descrpicion;
       console.log(descrpicion);
@@ -85,8 +78,11 @@ export default {
     },
   },
   mounted() {
-    this.obtenerProductos();
+     this.$store.dispatch("traerProductos")
   },
+  computed:{
+    ...mapGetters(["gettProductos"])
+  }
 };
 </script>
 

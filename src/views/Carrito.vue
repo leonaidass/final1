@@ -1,4 +1,5 @@
 <template>
+<v-container>
   <div>
     <h2>Carrito</h2>
 
@@ -6,6 +7,7 @@
       <v-data-table :items="datos" :headers="cabezera"> </v-data-table>
     </v-card>
   </div>
+  </v-container>
 </template>
 
 <script>
