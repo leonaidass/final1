@@ -15,16 +15,22 @@
         <div>
           <router-link to="/">Inicio</router-link> |
           <router-link to="/admin">Administrador</router-link> |
-          <router-link to="/carrito"><v-icon>mdi-cart-variant</v-icon></router-link>
+          <router-link to="/carrito"
+            ><v-badge
+              :content="gettCarrito.length"
+              :value="gettCarrito.length"
+              color="green"
+              overlap
+            >
+              <v-icon large> mdi-cart-variant </v-icon>
+            </v-badge></router-link
+          >
         </div>
       </v-app-bar>
       <!-- <v-container class="pt-12 mt-12"> -->
-        <v-main>
-        
-        
-          <Login v-if="logueado" @recibir="enviar" />
+      <v-main>
+        <Login v-if="logueado" @recibir="enviar" />
         <router-view v-else />
-        
       </v-main>
     </v-app>
   </div>
@@ -32,6 +38,7 @@
 
 <script>
 import Login from "./components/Login.vue";
+import {mapGetters} from "vuex"
 export default {
   components: {
     Login,
@@ -48,6 +55,16 @@ export default {
     salir() {
       this.logueado = false;
     },
+  },
+  mounted() {
+    const productosCarrito = localStorage.getItem("carrito");
+    if (productosCarrito) {
+      this.$store.dispatch("cargarCarrito", JSON.parse(productosCarrito));
+    }
+  },
+
+   computed: {
+    ...mapGetters(["gettCarrito"]),
   },
 };
 </script>

@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     productos: [],
-    datosEditar:{}
+    datosEditar:{},
+    carrito:[]
   },
   mutations: {
     getProductos(state,payload){
@@ -38,7 +39,27 @@ export default new Vuex.Store({
         
       });
     },
+    guardarCarrito(state,payload){
+     
+      //  const carritoProductos= JSON.parse(payload);
+         
+      state.carrito.push(payload)
+      
+      
+    
+
+    },
+    CargarCarrito(state,payload){
+      state.carrito=payload
+    }
+
+
+
+
   },
+
+
+
   actions: {
     traerProductos(context) {
       axios
@@ -54,6 +75,12 @@ export default new Vuex.Store({
     },
     datosDialog(context,payload){
        context.commit("dialogDatos",payload)
+    },
+    agregarCarrito(context,payload){
+       context.commit("guardarCarrito",payload)
+    },
+    cargarCarrito(context,payload){
+    context.commit("CargarCarrito",payload)
     }
   },
 
@@ -63,6 +90,12 @@ export default new Vuex.Store({
     },
     gettDatosEditar(state){
       return state.datosEditar
-    }
+    },
+    gettCarrito(state){
+      return state.carrito
+    },
+    // totalCarrito(state){
+    //   return state.carrito.reduce((acc, el) => (acc += el.precio), 0);
+    // }
   }
 });

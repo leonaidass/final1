@@ -135,11 +135,13 @@ export default {
   mounted() {
       this.$store.dispatch("traerProductos")
   },
+ 
   methods: {
     
       agregarProducto() {
      
        this.$store.dispatch("agregarProducto",this.productoAgregar)
+
       setTimeout(()=>{
             this.actualizar()
           },1500)

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div v-for="dato in gettProductos" :key="dato.id" class="cols-12 col-md-3">
+        <div v-for="dato in gettProductos" :key="dato.id" class="cols-12 col-md-3">
       <v-card
         class="pa-4 ma-2 mx-auto"
         max-width="344"
@@ -21,7 +21,24 @@
         <v-btn @click="enviarCarrito(dato)">Agregar </v-btn>
       </v-card>
     </div>
+ <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      color="success"
+    >
+      {{ text }}
 
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Cerrar
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
@@ -42,47 +59,53 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </div>
 </template>
 
 <script>
-import axios from "axios"
 import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       dialog: false,
       mensajeDetalle: "",
-      datoCarrito: { nombre: "", precio: "", cantidad: "" },
+      datoCarrito: { nombre: "", precio: "", cantidad: "",id:"" },
+      carritoLocal: [],
+       snackbar: false,
+      text: 'Se agrego el producto al carrito.',
+      timeout: 2000,
     };
   },
   methods: {
-      ver(descrpicion) {
+    ver(descrpicion) {
       this.dialog = true;
       this.mensajeDetalle = descrpicion;
       console.log(descrpicion);
     },
     enviarCarrito(parametros) {
+      this.snackbar=true
       this.datoCarrito = {
         nombre: parametros.nombre,
         precio: parametros.precio,
         cantidad: parametros.cantidad,
+        id:parametros.id
       };
-
-      axios.post("https://61afe8ff3e2aba0017c4959a.mockapi.io/carrito",this.datoCarrito)
-      .then((res)=>{
-        console.log(res.data)
-
-      })
-      
+      this.$store.dispatch("agregarCarrito", this.datoCarrito);
     },
   },
   mounted() {
-     this.$store.dispatch("traerProductos")
+    this.$store.dispatch("traerProductos");
+    
   },
-  computed:{
-    ...mapGetters(["gettProductos"])
-  }
+  computed: {
+    ...mapGetters(["gettProductos", "gettCarrito"]),
+  },
+  watch: {
+    gettCarrito(newValue) {
+      localStorage.setItem("carrito", JSON.stringify(newValue));
+    },
+  },
 };
 </script>
 
