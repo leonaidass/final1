@@ -27,6 +27,7 @@
           </v-col>
 
           <v-col>
+            <h2>Productos</h2>
             <v-data-table :headers="datosHeader" :items="gettProductos">
               <template v-slot:[`item.total`] ="{ item }">
                 {{ item.precio * item.cantidad }}
@@ -40,6 +41,11 @@
                 >
               </template>
             </v-data-table>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <Pedidos/>
           </v-col>
         </v-row>
         <v-dialog v-model="dialog" persistent max-width="600px">
@@ -95,8 +101,12 @@
 
 <script>
 import axios from "axios";
-import {mapGetters} from "vuex"
+import {mapGetters} from "vuex";
+import Pedidos from "../components/Pedidos.vue";
 export default {
+   components: {
+    Pedidos,
+  },
   data() {
     return {
       datos: [],
@@ -132,6 +142,7 @@ export default {
       ],
     };
   },
+
   mounted() {
       this.$store.dispatch("traerProductos")
   },
