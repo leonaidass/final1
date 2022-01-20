@@ -91,9 +91,9 @@ export default {
 
   methods: {
      eliminar(item){
-      let leo=item.id;
+      let idElemento=item.id;
       
-      let indice = this.gettCarrito.findIndex(mascota => mascota.id === leo);
+      let indice = this.gettCarrito.findIndex(elementoEliminar => elementoEliminar.id === idElemento);
       this.gettCarrito.splice(indice, 1)
      }
      
