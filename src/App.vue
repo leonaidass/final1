@@ -19,7 +19,7 @@
             ><v-badge
               :content="gettCarrito.length"
               :value="gettCarrito.length"
-              color="blue"
+              color="red"
               overlap
             >
               <v-icon large> mdi-cart-variant </v-icon>
