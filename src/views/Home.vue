@@ -7,7 +7,8 @@
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           
-          <a href="http://www.thismanslife.co.uk" target="_blank">Green Comidas</a>
+          
+          <h1>Green Comidas</h1>
         </v-col>
       </v-row>
     </v-parallax>
@@ -28,18 +29,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@keyframes tipsy {
-  0 {
-    transform: translateX(-50%) translateY(-50%) rotate(0deg);
-  }
-  100% {
-    transform: translateX(-50%) translateY(-50%) rotate(360deg);
-  }
-}
 
-
-a {
-  color: #7e5dd6;
+h1 {
+  color: rgba(76, 175, 80, 1);
   text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
   font-size: 80px;
   font-weight: bold;
@@ -50,30 +42,9 @@ a {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  -webkit-text-stroke: 1px rgb(3, 29, 12)
   
 }
 
-a:before,
-a:after {
-  content: '';
-  padding: .9em .4em;
-  position: absolute;
-  left: 50%;
-  width: 100%;
-  top: 50%;
-  display: block;
-  border: 15px solid red;
-  transform: translateX(-50%) translateY(-50%) rotate(0deg);
-  animation: 10s infinite alternate ease-in-out tipsy;
-}
 
-a:before {
-  border-color: #d9524a #d9524a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-  z-index: -1;
-}
-
-a:after {
-  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #d9524a #d9524a;
-  box-shadow: 25px 25px 25px rgba(46, 46, 49, .8);
-}
 </style>

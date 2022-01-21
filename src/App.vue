@@ -1,51 +1,40 @@
 <template>
   <div id="app">
     <v-app>
-      <v-app-bar app color="green" dark>
-        <h1>ComidasSaludables.Com</h1>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="teal lighten-3"
-          class="ml-4"
-          v-if="logueado"
-          @click="salir()"
-        >
-          Salir
-        </v-btn>
-        <div>
-          <router-link to="/">Inicio</router-link> |
-          <router-link to="/admin">Administrador</router-link> |
-          <router-link to="/carrito"
-            ><v-badge
-              :content="gettCarrito.length"
-              :value="gettCarrito.length"
-              color="red"
-              overlap
-            >
-              <v-icon large> mdi-cart-variant </v-icon>
-            </v-badge></router-link
-          >
-        </div>
-      </v-app-bar>
+      <Navbar :login="logueado"/>
       <!-- <v-container class="pt-12 mt-12"> -->
       <v-main>
-        <Login v-if="logueado" @recibir="enviar" />
+        <Login v-if="!logueado" @recibir="enviar" />
         <router-view v-else />
       </v-main>
+      <v-btn class="mx-2" id="botonCarrito" fab dark large color="green">
+        <v-badge
+          :content="gettCarrito.length"
+          :value="gettCarrito.length"
+          color="red"
+          overlap
+        >
+          <router-link to="/carrito">
+            <v-icon large> mdi-cart-variant </v-icon>
+          </router-link>
+        </v-badge>
+      </v-btn>
     </v-app>
   </div>
 </template>
 
 <script>
 import Login from "./components/Login.vue";
-import {mapGetters} from "vuex"
+import Navbar from "./components/Navbar.vue";
+import { mapGetters } from "vuex";
 export default {
   components: {
     Login,
+    Navbar,
   },
   data() {
     return {
-      logueado: false,
+      logueado: true,
     };
   },
   methods: {
@@ -63,13 +52,19 @@ export default {
     }
   },
 
-   computed: {
+  computed: {
     ...mapGetters(["gettCarrito"]),
   },
 };
 </script>
 
 <style scoped>
+#botonCarrito {
+  display: inline-block;
+  position: fixed;
+  bottom: 40px;
+  left: 25px;
+}
 a {
   text-decoration: none;
   color: white !important;
