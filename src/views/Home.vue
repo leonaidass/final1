@@ -31,8 +31,9 @@ export default {
 <style lang="css" scoped>
 
 h1 {
+   --glow-color: rgb(7, 97, 41);
   color: rgba(76, 175, 80, 1);
-  text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
+  
   font-size: 80px;
   font-weight: bold;
   text-decoration: none;
@@ -42,8 +43,10 @@ h1 {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  -webkit-text-stroke: 1px rgb(3, 29, 12)
-  
+  -webkit-text-stroke: 1px rgb(20, 122, 56);
+  text-shadow: 0 0 .5em var(--glow-color);
+        
+        
 }
 
 

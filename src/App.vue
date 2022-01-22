@@ -7,16 +7,16 @@
         <Login v-if="!logueado" @recibir="enviar" />
         <router-view v-else />
       </v-main>
-      <v-btn class="mx-2" id="botonCarrito" fab dark large color="green">
+      <v-btn class="mx-2" id="botonCarrito"  @click="goCarrito" fab dark large color="green">
         <v-badge
           :content="gettCarrito.length"
           :value="gettCarrito.length"
           color="red"
           overlap
         >
-          <router-link to="/carrito">
+          
             <v-icon large> mdi-cart-variant </v-icon>
-          </router-link>
+          
         </v-badge>
       </v-btn>
     </v-app>
@@ -44,6 +44,9 @@ export default {
     salir() {
       this.logueado = false;
     },
+    goCarrito(){
+      this.$router.push('/carrito').catch(()=>{});
+    }
   },
   mounted() {
     const productosCarrito = localStorage.getItem("carrito");
