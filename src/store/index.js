@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     productos: [],
     datosEditar:{},
-    carrito:[]
+    carrito:[],
+    login:false
   },
   mutations: {
     getProductos(state,payload){
@@ -42,7 +43,8 @@ export default new Vuex.Store({
     guardarCarrito(state,payload){
      
       //  const carritoProductos= JSON.parse(payload);
-         
+        payload.cantidad=1
+        
       state.carrito.push(payload)
       
       
@@ -51,6 +53,11 @@ export default new Vuex.Store({
     },
     CargarCarrito(state,payload){
       state.carrito=payload
+    },
+
+    vistaAdmin(state,payload){
+       state.login= payload
+       console.log(state.login)
     }
 
 
@@ -81,7 +88,11 @@ export default new Vuex.Store({
     },
     cargarCarrito(context,payload){
     context.commit("CargarCarrito",payload)
-    }
+    },
+    habilitarAdmin(context,payload){
+      context.commit("vistaAdmin",payload)
+      }
+
   },
 
   getters:{
@@ -94,8 +105,15 @@ export default new Vuex.Store({
     gettCarrito(state){
       return state.carrito
     },
-    // totalCarrito(state){
-    //   return state.carrito.reduce((acc, el) => (acc += el.precio), 0);
-    // }
+    gettLogin(state){
+      return state.login
+    },
+    totalCarrito(state){
+      // return state.carrito.reduce((acc, el) => (acc += el.precio), 0);
+      return state.carrito.reduce(function(acc, el) {
+        return acc + (el.precio * el.cantidad)
+        
+      }, 0);
+    }
   }
 });

@@ -2,17 +2,22 @@
   <div>
     <v-app-bar app color="green" dark>
       <v-app-bar-nav-icon
-        v-show="login"
+        v-show="gettLogin"
         @click="menu = !menu"
       ></v-app-bar-nav-icon>
-      <h1>GreenComidas.com</h1>
+      <v-app-bar-title class="hidden-sm-and-down"><h1>ComidasSaludables.com</h1></v-app-bar-title>
+      <v-app-bar-title class="hidden-md-and-up">ComidasSaludables</v-app-bar-title>
+      
+      
 
       <v-spacer></v-spacer>
-      <v-btn color="accent" class="ml-4" @click="goLogin"> Login </v-btn>
-      <v-btn color="teal lighten-3" class="ml-4" v-if="login"> Salir </v-btn>
       <div>
-        <router-link to="/">Inicio</router-link>
+        <router-link to="/"><h2>Inicio</h2></router-link>
+        
       </div>
+      <v-btn color="accent" class="ml-4" @click="goLogin" v-if="!gettLogin"> Login </v-btn>
+      <v-btn color="accent" class="ml-4" v-else @click="salir()"> Salir </v-btn>
+      
     </v-app-bar>
 
     <v-navigation-drawer app v-model="menu">
@@ -45,6 +50,7 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
   data() {
     return {
@@ -54,10 +60,15 @@ export default {
   methods:{
     goLogin(){
        this.$router.push('/login').catch(()=>{});
+    },
+    salir(){
+      let salirLogin=false;
+      this.$store.dispatch("habilitarAdmin",salirLogin)
+      this.$router.push('/');
     }
   },
-  props: {
-    login: Boolean,
+ computed: {
+    ...mapGetters(["gettLogin"]),
   },
 };
 </script>

@@ -16,6 +16,7 @@
                 <v-btn color="green" dark block @click="enviarOrden()"
                 >Realizar Pedido</v-btn
               >
+              
             </v-card>
     </v-container>
     </div>
@@ -24,6 +25,10 @@
 <script>
 import { mapGetters } from "vuex";
     export default {
+      props:{
+      total:Number
+      },
+
         data() {
             return {
                 nombreUsuario:"",
@@ -46,14 +51,17 @@ enviarOrden() {
           elem.nombre.replace(" ", "+") +
           "+-+" +
           "%24" +
-          elem.precio;
+          elem.precio +
+          "+-+" +
+          "cantidad: " +
+          elem.cantidad;
       });
       if (order === "delivery") {
         closingMessage =
           "%0D%0A" +
           "El+total+del+pedido+es+de+" +
           "%24" +
-          this.userCartTotal +
+          this.total +
           `%0D%0AEnviar+pedido+a+${this.direccion}`;
       } else if (order === "deliveryy") {
         closingMessage = `%0D%0AVoy+a+retirar+el+producto`;

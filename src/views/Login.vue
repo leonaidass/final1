@@ -112,7 +112,8 @@ export default {
       emailRegistro: "",
       contraseñaRegistro: "",
       datoRegistro: {},
-      registroLogin:"",
+      registroLogin: "",
+      ingreso:false,
 
       valor: false,
       nameRules: [
@@ -129,16 +130,17 @@ export default {
     };
   },
   methods: {
-     login() {
+    login() {
       if (this.$refs.login.validate()) {
-          
-          
-          if(this.registroLogin[0].nombre===this.Usuario && this.registroLogin[0].password===this.Contraseña){
-             console.log("ingreso al sistema admin")
-          }
-
-
-               
+        if (
+          this.registroLogin[0].nombre === this.Usuario &&
+          this.registroLogin[0].password === this.Contraseña
+        ) {
+          // console.log("ingreso al sistema admin");
+          this.ingreso=true;
+          this.$store.dispatch("habilitarAdmin",this.ingreso)
+          this.$router.push('/');
+        }
       }
     },
     enviar() {
@@ -169,17 +171,14 @@ export default {
       console.log(this.datoRegistro);
     },
   },
-  mounted(){
-
-      
-       axios
-          .get('https://61afe8ff3e2aba0017c4959a.mockapi.io/usuario')
-              .then(res => {
-          this.registroLogin = res.data
-             console.log(this.registroLogin[0].nombre)  
-          })
-      
-  }
+  mounted() {
+    axios
+      .get("https://61afe8ff3e2aba0017c4959a.mockapi.io/usuario")
+      .then((res) => {
+        this.registroLogin = res.data;
+        console.log(this.registroLogin[0].nombre);
+      });
+  },
 };
 </script>
 

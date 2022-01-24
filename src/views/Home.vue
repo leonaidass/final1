@@ -8,7 +8,7 @@
         <v-col class="text-center" cols="12">
           
           
-          <h1>Green Comidas</h1>
+          <h1>Comidas Saludables</h1>
         </v-col>
       </v-row>
     </v-parallax>
