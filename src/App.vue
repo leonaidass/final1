@@ -1,47 +1,39 @@
 <template>
   <div id="app">
     <v-app>
-      <v-app-bar app color="green" dark>
-        <h1>ComidasSaludables.Com</h1>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="teal lighten-3"
-          class="ml-4"
-          v-if="logueado"
-          @click="salir()"
-        >
-          Salir
-        </v-btn>
-        <div>
-          <router-link to="/">Inicio</router-link> |
-          <router-link to="/admin">Administrador</router-link> |
-          <router-link to="/carrito"
-            ><v-badge
-              :content="gettCarrito.length"
-              :value="gettCarrito.length"
-              color="green"
-              overlap
-            >
-              <v-icon large> mdi-cart-variant </v-icon>
-            </v-badge></router-link
-          >
-        </div>
-      </v-app-bar>
+      <Navbar/>
       <!-- <v-container class="pt-12 mt-12"> -->
       <v-main>
-        <Login v-if="logueado" @recibir="enviar" />
-        <router-view v-else />
+        <!-- <Login v-if="!logueado" @recibir="enviar" /> -->
+        <router-view />
       </v-main>
+      <v-btn class="mx-2" id="botonCarrito"  @click="goCarrito" fab dark large color="green">
+        <v-badge
+          :content="gettCarrito.length"
+          :value="gettCarrito.length"
+          color="red"
+          overlap
+        >
+          
+            <v-icon large> mdi-cart-variant </v-icon>
+          
+        </v-badge>
+      </v-btn>
+      <Footer/>
     </v-app>
   </div>
 </template>
 
 <script>
-import Login from "./components/Login.vue";
-import {mapGetters} from "vuex"
+// import Login from "./components/Login.vue";
+import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue"
+import { mapGetters } from "vuex";
 export default {
   components: {
-    Login,
+    // Login,
+    Navbar,
+    Footer
   },
   data() {
     return {
@@ -49,29 +41,40 @@ export default {
     };
   },
   methods: {
-    enviar(valor) {
-      this.logueado = valor;
-    },
-    salir() {
-      this.logueado = false;
-    },
+    // enviar(valor) {
+    //   this.logueado = valor;
+    // },
+    // salir() {
+    //   this.logueado = false;
+    // },
+    goCarrito(){
+      this.$router.push('/carrito').catch(()=>{});
+      
+    }
   },
   mounted() {
-    const productosCarrito = localStorage.getItem("carrito");
+       const productosCarrito = localStorage.getItem("carrito");
     if (productosCarrito) {
       this.$store.dispatch("cargarCarrito", JSON.parse(productosCarrito));
     }
   },
 
-   computed: {
+  computed: {
     ...mapGetters(["gettCarrito"]),
   },
 };
 </script>
 
 <style scoped>
+#botonCarrito {
+  display: inline-block;
+  position: fixed;
+  bottom: 40px;
+  left: 25px;
+}
 a {
   text-decoration: none;
   color: white !important;
 }
 </style>
+
