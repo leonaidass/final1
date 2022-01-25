@@ -1,5 +1,7 @@
 # trabajo final del Curso Vue.js en CoderHouse
-Un e-commerce de comida vegetariana 
+Un e-commerce de comida vegetariana con Panel de adminstrador
+Usuario:leonardo
+Contraseña:1234
 
 ## Project setup
 ```
