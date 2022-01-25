@@ -64,12 +64,13 @@ export default {
     salir(){
       let salirLogin=false;
       this.$store.dispatch("habilitarAdmin",salirLogin)
-      this.$router.push('/');
+      this.$router.push('/').catch(()=>{});
     }
   },
  computed: {
     ...mapGetters(["gettLogin"]),
   },
+ 
 };
 </script>
 
