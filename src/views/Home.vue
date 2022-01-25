@@ -6,8 +6,9 @@
     >
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="text-h4 font-weight-thin mb-4">Green Comidas</h1>
-          <h4 class="subheading">La tienda Nº 1 en Comidas!</h4>
+          
+          
+          <h1>Comidas Saludables</h1>
         </v-col>
       </v-row>
     </v-parallax>
@@ -27,10 +28,26 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-h1,
-h4 {
-  color: black;
-  font-size: 20px;
+<style lang="css" scoped>
+
+h1 {
+   --glow-color: rgb(7, 97, 41);
+  color: rgba(76, 175, 80, 1);
+  
+  font-size: 80px;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: -3px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-text-stroke: 1px rgb(20, 122, 56);
+  text-shadow: 0 0 .5em var(--glow-color);
+        
+        
 }
+
+
 </style>

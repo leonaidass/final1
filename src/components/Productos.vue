@@ -17,8 +17,13 @@
           <p>Cantidad: {{ dato.cantidad }}</p>
         </v-card-text>
 
-        <v-btn class="ma-2" @click="ver(dato.descripcion)">Ver Mas</v-btn>
-        <v-btn @click="enviarCarrito(dato)">Agregar </v-btn>
+        <v-btn class="ma-2" color="primary" @click="ver(dato.descripcion)">Ver Mas</v-btn>
+        <v-btn color="green" dark @click="enviarCarrito(dato)">Agregar <v-icon
+          dark
+          right
+        >
+         mdi-cart-variant
+        </v-icon> </v-btn>
       </v-card>
     </div>
  <v-snackbar
@@ -61,6 +66,7 @@
     </v-dialog>
 
   </div>
+  
 </template>
 
 <script>
