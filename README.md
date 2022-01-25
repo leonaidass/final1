@@ -1,4 +1,5 @@
-# trabajofinal
+# trabajo final del Curso Vue.js en CoderHouse
+Un e-commerce de comida vegetariana 
 
 ## Project setup
 ```
