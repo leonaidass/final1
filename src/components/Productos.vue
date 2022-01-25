@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-        <div v-for="dato in gettProductos" :key="dato.id" class="cols-12 col-md-3">
+    <div v-for="dato in gettProductos" :key="dato.id" class="cols-12 col-md-3">
       <v-card
         class="pa-4 ma-2 mx-auto"
         max-width="344"
@@ -17,29 +17,19 @@
           <p>Cantidad: {{ dato.cantidad }}</p>
         </v-card-text>
 
-        <v-btn class="ma-2" color="primary" @click="ver(dato.descripcion)">Ver Mas</v-btn>
-        <v-btn color="green" dark @click="enviarCarrito(dato)">Agregar <v-icon
-          dark
-          right
+        <v-btn class="ma-1" color="primary" @click="ver(dato.descripcion)"
+          >Ver Mas</v-btn
         >
-         mdi-cart-variant
-        </v-icon> </v-btn>
+        <v-btn color="green" dark @click="enviarCarrito(dato)"
+          >Agregar <v-icon dark right > mdi-cart-variant </v-icon>
+        </v-btn>
       </v-card>
     </div>
- <v-snackbar
-      v-model="snackbar"
-      :timeout="timeout"
-      color="success"
-    >
+    <v-snackbar v-model="snackbar" :timeout="timeout" color="success">
       {{ text }}
 
       <template v-slot:action="{ attrs }">
-        <v-btn
-          color="white"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
+        <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
           Cerrar
         </v-btn>
       </template>
@@ -64,9 +54,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
   </div>
-  
 </template>
 
 <script>
@@ -76,10 +64,10 @@ export default {
     return {
       dialog: false,
       mensajeDetalle: "",
-      datoCarrito: { nombre: "", precio: "", cantidad: "",id:"" },
+      datoCarrito: { nombre: "", precio: "", cantidad: "", id: "" },
       carritoLocal: [],
-       snackbar: false,
-      text: 'Se agrego el producto al carrito.',
+      snackbar: false,
+      text: "Se agrego el producto al carrito.",
       timeout: 2000,
     };
   },
@@ -90,19 +78,18 @@ export default {
       console.log(descrpicion);
     },
     enviarCarrito(parametros) {
-      this.snackbar=true
+      this.snackbar = true;
       this.datoCarrito = {
         nombre: parametros.nombre,
         precio: parametros.precio,
         cantidad: parametros.cantidad,
-        id:parametros.id
+        id: parametros.id,
       };
       this.$store.dispatch("agregarCarrito", this.datoCarrito);
     },
   },
   mounted() {
     this.$store.dispatch("traerProductos");
-    
   },
   computed: {
     ...mapGetters(["gettProductos", "gettCarrito"]),

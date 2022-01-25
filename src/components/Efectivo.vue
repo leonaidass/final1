@@ -5,19 +5,40 @@
     <v-container>
          <v-card class="sidebar pa-4">
               <h3>Completa con tus datos</h3>
+              <v-form v-model="valid" ref="compra">
               <v-text-field
                 v-model="nombreUsuario"
+                :rules="nameRules"
                 label="Nombre"
               ></v-text-field>
               <v-text-field
                 v-model="direccion"
+                :rules="nameDireccion"
                 label="Direccion"
               ></v-text-field>
                 <v-btn color="green" dark block @click="enviarOrden()"
                 >Realizar Pedido</v-btn
               >
-              
+              </v-form>
             </v-card>
+            <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      color="red accent-2"
+    >
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Cerrar
+        </v-btn>
+      </template>
+    </v-snackbar>
     </v-container>
     </div>
 </template>
@@ -32,7 +53,21 @@ import { mapGetters } from "vuex";
         data() {
             return {
                 nombreUsuario:"",
-                direccion:""
+                direccion:"",
+                 snackbar: false,
+      text: 'Agregue Productos al Carrito y Complete sus datos para continuar.',
+      timeout: 2000,
+                valid: false,
+                nameRules: [
+        (v) => !!v || "Por favor complete este campo",
+        (v) =>
+          v.length >= 3 || "Este campo debe contener al menos 3 caracteres",
+      ],
+      nameDireccion: [
+        (v) => !!v || "Por favor complete este campo",
+        (v) =>
+          v.length >= 3 || "Este campo debe contener al menos 3 caracteres",
+      ],
             }
         },
         computed: {
@@ -41,6 +76,7 @@ import { mapGetters } from "vuex";
 
   methods:{
 enviarOrden() {
+       if(this.$refs.compra.validate() && this.gettCarrito.length>0){
       let productsString = "";
       let closingMessage = "";
       let order="delivery"
@@ -56,6 +92,7 @@ enviarOrden() {
           "cantidad: " +
           elem.cantidad;
       });
+      localStorage.removeItem('carrito')
       if (order === "delivery") {
         closingMessage =
           "%0D%0A" +
@@ -71,6 +108,9 @@ enviarOrden() {
       }%21%0D%0AQuiero+realizar+un+pedido+de+los+siguientes+items%3A${
         productsString + closingMessage
       }`;
+    }else{
+      this.snackbar=true
+    }
     },
   }
     }
