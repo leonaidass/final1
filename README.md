@@ -1,6 +1,6 @@
 # trabajo final del Curso Vue.js en CoderHouse
 Un e-commerce de comida vegetariana con Panel de adminstrador
-### liveVersion [ComidasSaludables](https://comidassaludables.com.leonardoesquivel.com).
+### liveVersion [ComidasSaludables](https://comidassaludables.leonardoesquivel.com).
 Usuario:leonardo
 Contraseña:1234
 
